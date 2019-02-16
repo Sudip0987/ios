@@ -2,12 +2,24 @@
 //  CustomCell.m
 //  GroceryApp
 //
-//  Created by Sudip Sharma on 20/1/19.
+//  Created by Sudip Sharma on 16/2/19.
 //  Copyright © 2019 Sudip Sharma. All rights reserved.
 //
 
 #import "CustomCell.h"
-#import "MyListViewController.h"
+
 @implementation CustomCell
-@synthesize itemName,itemPrice,itemButton,itemShopAt;
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+
 @end

@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString* shopAt;
 @property float ItemPrice;
 @property NSString *weekKey;
+@property NSString *ItemKey;
+
+@property bool *shopped;
 @property NSDate* date;
 @end
 

@@ -22,7 +22,6 @@ bool dateAdded=false;
     [super viewDidLoad];
    self.ref = [[FIRDatabase database] reference];  //creating an instance of FIRDatabaseReference to read and write data
     
-    [self storeDeviceID];
 }
 
 -(void) storeDeviceID{
@@ -44,11 +43,33 @@ bool dateAdded=false;
 
 }
 
--(void) setNewList{
-   // NSString dkey = [[_ref child:@"/GroceryData"] child:@"deviceID/"].key;
 
+
+-(void)setPreviousDataAsHistory{
+ 
+    [[[self.ref child:@"GroceryData"] queryOrderedByChild:@"Items"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        
+        int i=0;
+        for(FIRDataSnapshot* snap in snapshot.children){ //looping inside main object ie; snapshot
+            if([[snap.value objectForKey:@"deviceID"] isEqualToString:deviceID]){
+                NSLog(@"KEY: %@",snap.key );
+                [[[[_ref child:@"GroceryData"] child:snap.key]child:@"isCurrent"] setValue:@true];
+
+          
+            }
+            
+            
+            
+        }
+        
+        
+    }];
+    
     
 }
+
+
 
 
 - (IBAction)btAdd:(id)sender {
@@ -89,10 +110,46 @@ bool dateAdded=false;
 - (IBAction)btClear:(id)sender {
     
     
-    
-   // [_ref updateChildValues:childUpdates2];
+   //[_ref updateChildValues:childUpdates2];
 }
 
 - (IBAction)btFinish:(id)sender {
 }
+
+- (IBAction)btSetBudget:(id)sender {
+    
+   
+    
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"Create shopping list"
+                                 message:@"This new list will replace your old list as current shopping list. Do you wish to procced?"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    //Add Buttons
+    
+    UIAlertAction* yesButton = [UIAlertAction
+                                actionWithTitle:@"Yes"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    [self performSegueWithIdentifier:@"showItemScreen" sender:self];
+                                    [self setPreviousDataAsHistory];                              }];
+    
+    UIAlertAction* noButton = [UIAlertAction
+                               actionWithTitle:@"No"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   //Handle no, thanks button
+                               }];
+    
+    //Add your buttons to alert controller
+    
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    [self storeDeviceID];
+
+}
+
+
 @end

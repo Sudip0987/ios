@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GroceryItem.h"
+#import "CustomCell.h"
 NS_ASSUME_NONNULL_BEGIN
 @import Firebase;
+
 @interface MyListViewController : UITableViewController<UITableViewDataSource,UITableViewDataSource>
 @property(strong, nonatomic) NSMutableArray * arrayDate;
+extern NSString* deviceID;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @end
 

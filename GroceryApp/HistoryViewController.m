@@ -52,6 +52,7 @@
                         [groceryItem setItemName:[s.value objectForKey:@"ItemName"] ];
                         [groceryItem setItemPrice:[[s.value objectForKey:@"ItemPrice"] floatValue]];
                         [groceryItem setShopAt:[s.value objectForKey:@"ShopAt"] ];
+                        [groceryItem setItemKey:s.key];
                         [groceryItem setWeekKey: snap.key];
                         [groceryItemArray addObject:groceryItem];
                     }
