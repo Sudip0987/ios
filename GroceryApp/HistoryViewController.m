@@ -31,7 +31,7 @@
     groceryItemArray = [[NSMutableArray alloc] init];
 
     
-    [[[self.ref child:@"GroceryData"] queryOrderedByChild:@"Items"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[self.ref child:@"GroceryData"] queryOrderedByChild:@"date"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         
         int i=0;
@@ -39,9 +39,9 @@
             if([[snap.value objectForKey:@"deviceID"] isEqualToString:deviceID]){
                 i+=1;
                 [self.weeksArray addObject:[NSString stringWithFormat:@"Week %d",i]];
-                if(![_weekKeyArray containsObject:snap.key]){
+                if(![self->_weekKeyArray containsObject:snap.key]){
                  [self.weekKeyArray addObject:snap.key];
-                    [_dateArray addObject:[snap.value objectForKey:@"date"]];
+                    [self->_dateArray addObject:[snap.value objectForKey:@"date"]];
                 }
                 for(FIRDataSnapshot* sn in snap.children){//looping inside second object ie; Items
                     

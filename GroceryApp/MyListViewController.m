@@ -7,7 +7,7 @@
     NSMutableArray *weeksArray;
     NSMutableArray * dateArray;
     NSMutableArray* currentItemsArray;
-    
+   
 }
 
 @end
@@ -33,15 +33,18 @@
         for(FIRDataSnapshot* snap in snapshot.children){ //looping inside main object ie; snapshot
             if([[snap.value objectForKey:@"deviceID"] isEqualToString:deviceID]){
                 i+=1;
-                ;
                 
+                //storing the current week key
+                currentWeekKey = snap.key;
                 
                 if ([[snap.value objectForKey:@"isCurrent"]boolValue]==true){
                     
                     for(FIRDataSnapshot* sn in snap.children){//looping inside second object ie; Items
-                        
+                      
+                       
                         for(FIRDataSnapshot* s in sn.children){ //looping inside each item in items Object
                             
+                            if([[s.value objectForKey:@"ItemPrice"] floatValue]>0){
                             GroceryItem *groceryItem = [[GroceryItem alloc]init];
                             [groceryItem setItemName:[s.value objectForKey:@"ItemName"] ];
                             [groceryItem setItemPrice:[[s.value objectForKey:@"ItemPrice"] floatValue]];
@@ -52,7 +55,8 @@
                             
                             [groceryItem setWeekKey: snap.key];
                             //   NSLog(@"SSS---%@",[s.value objectForKey:@"ItemName"]);
-                            [currentItemsArray addObject:groceryItem];
+                                [self->currentItemsArray addObject:groceryItem];
+                            }
                         }
                     }
                 }
@@ -102,31 +106,79 @@
     GroceryItem* gItem = [[GroceryItem alloc]init];
     gItem =[currentItemsArray objectAtIndex:indexPath.row];
     cell.tbName.text=[gItem ItemName];
-    cell.tbPrice.text=[NSString stringWithFormat:@"%.02f",[gItem ItemPrice]];
+    cell.tbPrice.text=[NSString stringWithFormat:@"%.f$",[gItem ItemPrice]];
     cell.tbShop.text=[gItem shopAt];
-    
+    [ cell.btDelete setTitle:@"  Delete  " forState:UIControlStateNormal];
     if([gItem shopped]==false){
-        [cell.btDone setTitle:@" X" forState:UIControlStateNormal];
+        [cell.btDone setTitle:@"  ✔  " forState:UIControlStateNormal];
     }else {
-        [cell.btDone setTitle:@" ✔" forState:UIControlStateNormal];
+        [cell.btDone setTitle:@" Done" forState:UIControlStateNormal];
         [cell.btDone setEnabled:false];
+        [cell.btEdit setEnabled:false];
+        [cell.btDelete setEnabled:false];
         
     }
+    //Done Button
     cell.btDone.tag = indexPath.row;
-    [cell.btDone addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.btDone addTarget:self action:@selector(doneButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //Delete Button
+    cell.btDelete.tag = indexPath.row;
+    [cell.btDelete addTarget:self action:@selector(deleteButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //Edit Button
+    cell.btEdit.tag = indexPath.row;
+    [cell.btEdit addTarget:self action:@selector(editButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     return cell;
 }
 
 
--(void)buttonClicked:(UIButton*)btn
+-(void)deleteButtonClicked:(UIButton*)btn
+{
+    
+    GroceryItem* gItem = [[GroceryItem alloc]init];
+    gItem =[currentItemsArray objectAtIndex:btn.tag];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Item Added"
+                                                    message:[NSString stringWithFormat:@"%@ has been ticked as shopped.",[gItem ItemName]]
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    NSLog(@"current - %@;;;;;;item -%@",currentWeekKey,[gItem ItemKey]  );
+   // [[[[_ref child:@"GroceryData"] child:currentWeekKey]child:@"Items"]child:[gItem ItemKey]] setValue:nil];
+    [[[[[_ref child:@"GroceryData"]child:currentWeekKey]child:@"Items"]child:[gItem ItemKey]] setValue:nil];
+    [self tickOffItem:@"refreshOnly"];
+
+    [currentItemsArray removeObject:gItem];
+    [self.tableView reloadData];
+    
+}
+
+-(void)doneButtonClicked:(UIButton*)btn
 {
     
     GroceryItem* gItem = [[GroceryItem alloc]init];
     gItem =[currentItemsArray objectAtIndex:btn.tag];
     NSLog(@"%@",[gItem ItemKey]);
-    [self tickOffItem:[gItem ItemKey]];
+   [self tickOffItem:[gItem ItemKey]];
     
+    
+    
+    
+    
+}
+-(void)editButtonClicked:(UIButton*)btn
+{
+    
+    GroceryItem* gItem = [[GroceryItem alloc]init];
+    gItem =[currentItemsArray objectAtIndex:btn.tag];
+    currentItemKey =[gItem ItemKey];
+    cItemName = [gItem ItemName];
+    cItemPrice = [NSString stringWithFormat:@"%.f",[gItem ItemPrice]];
+    cItemShopAt = [gItem shopAt];
 }
 
 -(void) tickOffItem:(NSString*) Itemkey{
@@ -143,7 +195,6 @@
                 i+=1;
                 ;
                 
-                
                 if ([[snap.value objectForKey:@"isCurrent"]boolValue]==true){
                     
                     for(FIRDataSnapshot* sn in snap.children){//looping inside second object ie; Items
@@ -157,7 +208,9 @@
                             //looping inside each item in items Object
                             
                             // [[[[_ref child:@"GroceryData"] child:snap.key]child:@"isCurrent"] setValue:@false];
-                            [[[[[[_ref child:@"GroceryData"] child:snap.key]child:sn.key]child:Itemkey]child:@"shopped"]setValue:@1];
+                            if(![Itemkey isEqualToString:@"refreshOnly"] ){
+                                [[[[[[self->_ref child:@"GroceryData"] child:snap.key]child:sn.key]child:Itemkey]child:@"shopped"]setValue:@1];
+                            }
                             
                         }
                     }

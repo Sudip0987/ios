@@ -11,6 +11,10 @@
 NSMutableArray* groceryItemArray;
 NSString* deviceID;
 NSString* weekKeyForData;
+
+NSString* currentWeekKey;
+NSString* currentItemKey;
+NSString *cItemName,*cItemPrice,*cItemShopAt;
 int numberOfItems=0;
 
 

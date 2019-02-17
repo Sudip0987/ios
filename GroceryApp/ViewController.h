@@ -12,10 +12,12 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 //Budget screen controls
-- (IBAction)btSetBudget:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UITextField *tbBudget;
+- (IBAction)btSetBudget:(id)sender;
 
 //Add Item screen controls
+@property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
 @property (weak, nonatomic) IBOutlet UITextField *tbItemName;
 @property (weak, nonatomic) IBOutlet UITextField *tbItemPrice;
 @property (weak, nonatomic) IBOutlet UITextField *tbShopAt;
@@ -26,6 +28,7 @@
 
 //global
 extern NSString* deviceID;
+
 
 
 @end

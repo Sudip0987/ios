@@ -19,6 +19,7 @@
 		68BAEFD221F2FA6A00F84C43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BAEFD121F2FA6A00F84C43 /* main.m */; };
 		68BAEFDC21F2FA6A00F84C43 /* GroceryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BAEFDB21F2FA6A00F84C43 /* GroceryAppTests.m */; };
 		68BAEFE721F2FA6A00F84C43 /* GroceryAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BAEFE621F2FA6A00F84C43 /* GroceryAppUITests.m */; };
+		68C0C4E62218D74D00CE7B0D /* EditItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C0C4E52218D74D00CE7B0D /* EditItemViewController.m */; };
 		68F0E4D221F40432005EB81F /* MyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F0E4D121F40432005EB81F /* MyListViewController.m */; };
 		68F974F122179958006D383E /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F974F022179958006D383E /* CustomCell.m */; };
 		A350DDEF12B6B23717D3BD85 /* libPods-GroceryAppUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D102AAAFBDBB0FFF1A6E7615 /* libPods-GroceryAppUITests.a */; };
@@ -69,6 +70,8 @@
 		68BAEFE221F2FA6A00F84C43 /* GroceryAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroceryAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BAEFE621F2FA6A00F84C43 /* GroceryAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroceryAppUITests.m; sourceTree = "<group>"; };
 		68BAEFE821F2FA6A00F84C43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68C0C4E42218D74D00CE7B0D /* EditItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditItemViewController.h; sourceTree = "<group>"; };
+		68C0C4E52218D74D00CE7B0D /* EditItemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditItemViewController.m; sourceTree = "<group>"; };
 		68F0E4D021F40432005EB81F /* MyListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyListViewController.h; sourceTree = "<group>"; };
 		68F0E4D121F40432005EB81F /* MyListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyListViewController.m; sourceTree = "<group>"; };
 		68F974EF22179958006D383E /* CustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
@@ -159,8 +162,8 @@
 				68B0275621F3F6E500CCFAEB /* DetailViewController.h */,
 				68B0275721F3F6E500CCFAEB /* DetailViewController.m */,
 				68B0275321F3EC9800CCFAEB /* HistoryViewController.h */,
-				68B0275421F3EC9800CCFAEB /* HistoryViewController.m */,
 				68BAEFCB21F2FA6A00F84C43 /* Assets.xcassets */,
+				68B0275421F3EC9800CCFAEB /* HistoryViewController.m */,
 				68BAEFCD21F2FA6A00F84C43 /* LaunchScreen.storyboard */,
 				68BAEFD021F2FA6A00F84C43 /* Info.plist */,
 				68BAEFD121F2FA6A00F84C43 /* main.m */,
@@ -168,6 +171,8 @@
 				6835506C2212DC1300CC7F2F /* GroceryItem.m */,
 				68F974EF22179958006D383E /* CustomCell.h */,
 				68F974F022179958006D383E /* CustomCell.m */,
+				68C0C4E42218D74D00CE7B0D /* EditItemViewController.h */,
+				68C0C4E52218D74D00CE7B0D /* EditItemViewController.m */,
 			);
 			path = GroceryApp;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				68BAEFC421F2FA6900F84C43 /* AppDelegate.m in Sources */,
 				68F0E4D221F40432005EB81F /* MyListViewController.m in Sources */,
 				68B0275521F3EC9800CCFAEB /* HistoryViewController.m in Sources */,
+				68C0C4E62218D74D00CE7B0D /* EditItemViewController.m in Sources */,
 				68F974F122179958006D383E /* CustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
