@@ -47,7 +47,7 @@ NSInteger totalBudget=0,usedBudget=0;
 -(void) storeDeviceID{
     NSDate* date = [NSDate date];
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString* dateString  = [formatter stringFromDate:date];
     
     key1 = [[_ref child:@"/GroceryData/"] childByAutoId].key;
@@ -149,7 +149,7 @@ NSInteger totalBudget=0,usedBudget=0;
         return true;
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Item Added"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Budget Value"
                                                         message:@"Budget value miust be numerical"
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
@@ -161,7 +161,7 @@ NSInteger totalBudget=0,usedBudget=0;
 - (IBAction)btAdd:(id)sender {
     
     
-    if([self checkIfValid:tbItemPrice.text]==true){
+    if([self checkIfValid:tbItemPrice.text]==true  && tbItemName.text.length>0 && tbShopAt.text.length>0){
         if(addedItem.count>0){
             for(NSString *it in addedItem){
                 if([tbItemName.text isEqualToString:it]){
@@ -194,9 +194,15 @@ NSInteger totalBudget=0,usedBudget=0;
 }
 
 - (IBAction)btFinish:(id)sender {
-    
     [self updateBudgetInDB];
+    
+    //popping controller with current grocery list
+    
+    [[self navigationController] popToViewController:[self.navigationController.viewControllers firstObject] animated:YES];
+
 }
+
+
 
 - (IBAction)btSetBudget:(id)sender {
     if([self checkIfValid:_tbBudget.text]==true){
@@ -221,6 +227,7 @@ NSInteger totalBudget=0,usedBudget=0;
                                 handler:^(UIAlertAction * action) {
                                     [self performSegueWithIdentifier:@"showItemScreen" sender:self];
                                     [self setPreviousDataAsHistory];
+                                    [self storeDeviceID];
                                     totalBudget = [self.tbBudget.text integerValue];
                                 }];
     
@@ -229,6 +236,7 @@ NSInteger totalBudget=0,usedBudget=0;
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action) {
                                    //Handle no, thanks button
+                                   NSLog(@"NO");
                                }];
     
     //Add your buttons to alert controller
@@ -237,7 +245,6 @@ NSInteger totalBudget=0,usedBudget=0;
     [alert addAction:noButton];
     
     [self presentViewController:alert animated:YES completion:nil];
-    [self storeDeviceID];
     
 }
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{

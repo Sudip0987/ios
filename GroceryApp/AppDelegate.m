@@ -1,10 +1,4 @@
-//
-//  AppDelegate.m
-//  GroceryApp
-//
-//  Created by Sudip Sharma on 19/1/19.
-//  Copyright © 2019 Sudip Sharma. All rights reserved.
-//
+
 
 #import "AppDelegate.h"
 

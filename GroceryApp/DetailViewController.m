@@ -1,10 +1,3 @@
-//
-//  DetailViewController.m
-//  GroceryApp
-//
-//  Created by Sudip Sharma on 20/1/19.
-//  Copyright © 2019 Sudip Sharma. All rights reserved.
-//
 
 #import "DetailViewController.h"
 @interface DetailViewController (){
@@ -19,6 +12,10 @@
 @implementation DetailViewController
 
 - (void)viewDidLoad {
+    
+    //remove this
+    
+    
     [super viewDidLoad];
     
     
@@ -52,7 +49,7 @@
     for(GroceryItem *gItem in groceryItemArray){
         if([[gItem weekKey] isEqualToString:weekKeyForData]){
             [itemNameArray addObject:[gItem ItemName]];
-            [itemPriceArray addObject:[NSString stringWithFormat:@"%.02f",[gItem ItemPrice]]];
+            [itemPriceArray addObject:[NSString stringWithFormat:@"%.f$",[gItem ItemPrice]]];
         }
     }
     cell.textLabel.text= [itemNameArray objectAtIndex:indexPath.row];

@@ -1,10 +1,3 @@
-//
-//  CustomCell.h
-//  GroceryApp
-//
-//  Created by Sudip Sharma on 16/2/19.
-//  Copyright © 2019 Sudip Sharma. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 

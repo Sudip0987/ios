@@ -113,6 +113,7 @@
         [cell.btDone setTitle:@"  ✔  " forState:UIControlStateNormal];
     }else {
         [cell.btDone setTitle:@" Done" forState:UIControlStateNormal];
+        cell.backgroundColor = [UIColor lightGrayColor];
         [cell.btDone setEnabled:false];
         [cell.btEdit setEnabled:false];
         [cell.btDelete setEnabled:false];
@@ -193,7 +194,7 @@
         for(FIRDataSnapshot* snap in snapshot.children){ //looping inside main object ie; snapshot
             if([[snap.value objectForKey:@"deviceID"] isEqualToString:deviceID]){
                 i+=1;
-                ;
+                
                 
                 if ([[snap.value objectForKey:@"isCurrent"]boolValue]==true){
                     
